@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 
 const MapComponent = () => {
@@ -29,9 +31,17 @@ const MapComponent = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <p>Current Position: Latitude: {position[0]}, Longitude: {position[1]}</p>
-    </div>
+    <MapContainer center={position} zoom={13} style={{ height: "100vh", width: "100%" }}>
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      />
+      <Marker position={position}>
+        <Popup>
+          Drone Location: <br /> Latitude: {position[0]} <br /> Longitude: {position[1]}
+        </Popup>
+      </Marker>
+    </MapContainer>
   );
 };
 
