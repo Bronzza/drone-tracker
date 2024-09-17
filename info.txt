@@ -1,0 +1,4 @@
+docker build -t bronzzza/telemetry-ui:latest .    
+
+docker build -t bronzzza/drone-tracker:latest .
+docker push bronzzza/drone-tracker:latest

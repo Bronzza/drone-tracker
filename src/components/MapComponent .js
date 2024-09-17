@@ -3,6 +3,12 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
+const deviceId = process.env.REACT_APP_DEVICE_ID;
+const apiUrl = `${baseUrl}/${deviceId}`;
+
+console.log(apiUrl);
+
 const MapComponent = () => {
   const [position, setPosition] = useState([0, 0]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +18,7 @@ const MapComponent = () => {
     const fetchLocation = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:8081/api/telemetry/device/location/drone123'); // Replace with your endpoint
+        const response = await axios.get(apiUrl); // Replace with your endpoint
         setPosition([response.data.latitude, response.data.longitude]);
       } catch (error) {
         setError('Error fetching location');
